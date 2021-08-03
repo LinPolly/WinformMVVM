@@ -1,28 +1,27 @@
 ﻿using AsyncAwaitBestPractices.MVVM;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace WinformMVVM
 {
     public class SampleVModel : ViewModel
     {
+        [Range(1, 10, ErrorMessage = "Value for {0} must be between {1} and {2}.")]
         public int Counter
         {
             get => _counter;
-            set => this.MutateVerbose(ref _counter, value, RaisePropertyChanged());
+            set
+            {
+                this.MutateVerbose(ref _counter, value, RaisePropertyChanged());
+            }
         }
-        private int _counter = 0;
+        private int _counter = -1;
 
         public IAsyncCommand IncrementCommand { get; set; }
         public IAsyncCommand ResetCommand { get; set; }
 
         public SampleVModel()
-        {
-            _counter = 0;
-
+        {            
             IncrementCommand = new AsyncCommand(() =>
             {
                 return Task.Run(() =>
@@ -37,6 +36,8 @@ namespace WinformMVVM
                     Counter = 0;
                 });
             });
+
+            ResetCommand.ExecuteAsync();
         }
     }
 }

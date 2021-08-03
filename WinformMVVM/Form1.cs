@@ -25,6 +25,9 @@ namespace WinformMVVM
         {
             SampleVModel = new SampleVModel();
 
+            errorProvider1.DataSource = SampleVModel;
+            errorProvider1.Icon = SystemIcons.Error;
+
             label1.DataBindings.Add(nameof(label1.Text), SampleVModel, nameof(SampleVModel.Counter));
 
             Disposables.Add(btnIncrement.BindCommand(SampleVModel.IncrementCommand));
