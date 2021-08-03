@@ -38,11 +38,5 @@ namespace WinformMVVM
                 item?.Dispose();
             }
         }
-
-        private void btnIncrement_Click(object sender, EventArgs e)
-        {
-            SampleVModel.IncrementCommand.ExecuteAsync();
-            //Thread.Sleep(3000);
-        }
     }
 }
