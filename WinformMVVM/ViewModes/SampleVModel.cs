@@ -1,12 +1,11 @@
 ﻿using AsyncAwaitBestPractices.MVVM;
-using System.ComponentModel.DataAnnotations;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace WinformMVVM
+namespace WinformMVVM.ViewModels
 {
     public class SampleVModel : ViewModel
     {
-        [Range(1, 10, ErrorMessage = "Value for {0} must be between {1} and {2}.")]
         public int Counter
         {
             get => _counter;
@@ -21,7 +20,7 @@ namespace WinformMVVM
         public IAsyncCommand ResetCommand { get; set; }
 
         public SampleVModel()
-        {            
+        {
             IncrementCommand = new AsyncCommand(() =>
             {
                 return Task.Run(() =>
@@ -38,6 +37,15 @@ namespace WinformMVVM
             });
 
             ResetCommand.ExecuteAsync();
+
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    IncrementCommand.ExecuteAsync();
+                    Thread.Sleep(1000);
+                }
+            });
         }
     }
 }

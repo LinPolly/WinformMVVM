@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinformMVVM.Extensions;
+using WinformMVVM.ViewModels;
 
 namespace WinformMVVM
 {
@@ -25,10 +27,8 @@ namespace WinformMVVM
         {
             SampleVModel = new SampleVModel();
 
-            errorProvider1.DataSource = SampleVModel;
-            errorProvider1.Icon = SystemIcons.Error;
-
             label1.DataBindings.Add(nameof(label1.Text), SampleVModel, nameof(SampleVModel.Counter));
+            textBox1.DataBindings.Add(nameof(textBox1.Text), SampleVModel, nameof(SampleVModel.Counter));
 
             Disposables.Add(btnIncrement.BindCommand(SampleVModel.IncrementCommand));
             Disposables.Add(btnReset.BindCommand(SampleVModel.ResetCommand));
@@ -39,6 +39,15 @@ namespace WinformMVVM
             foreach (var item in Disposables)
             {
                 item?.Dispose();
+            }
+        }
+
+        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                var textBox = sender as TextBox;
+                textBox.DataBindings[0].WriteValue();
             }
         }
     }

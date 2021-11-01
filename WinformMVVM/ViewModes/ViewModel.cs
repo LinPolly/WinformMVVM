@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
-namespace WinformMVVM
+namespace WinformMVVM.ViewModels
 {
     /// <summary>
     /// Notify Property ViewModel

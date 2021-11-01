@@ -4,7 +4,7 @@ using System.Reactive.Disposables;
 using System.Windows.Forms;
 using System.Windows.Input;
 
-namespace WinformMVVM
+namespace WinformMVVM.Extensions
 {
     /// <summary>
     /// Button Extension
